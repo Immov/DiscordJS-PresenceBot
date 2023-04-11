@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Tap Data</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		th,
+		td {
+			text-align: left;
+			padding: 8px;
+			border: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+
+		.sort {
+			cursor: pointer;
+		}
+
+		.asc:after {
+			content: ' ▲';
+		}
+
+		.desc:after {
+			content: ' ▼';
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Tap Data</h1>
+	<table id="tap-table">
+		<thead>
+			<tr>
+				<th class="sort" data-col="userID">User ID</th>
+				<th class="sort" data-col="tap">Tap</th>
+				<th class="sort" data-col="date">Date</th>
+				<th class="sort" data-col="reason">Reason</th>
+				<th class="sort" data-col="proofURL" style="width: 20%;">Proof URL</th>
+				<th class="sort" data-col="time">Hour</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% taps.forEach(function(tap) { %>
+				<tr>
+					<td>
+						<%= tap.userID %>
+					</td>
+					<td>
+						<%= tap.tap %>
+					</td>
+					<td>
+						<%= tap.date.toLocaleString() %>
+					</td>
+					<td>
+						<%= tap.reason %>
+					</td>
+					<td>
+						<%= tap.proofURL %>
+					</td>
+					<td>
+						<%= tap.hour %>:
+							<%= tap.minute %>
+					</td>
+				</tr>
+				<% }); %>
+		</tbody>
+	</table>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function () {
+			var $table = $('#tap-table');
+			var $tbody = $table.find('tbody');
+			var $rows = $tbody.find('tr');
+			var $headers = $table.find('th');
+			var rows = $rows.toArray();
+
+			function sortRows(colIndex, ascending) {
+				var multiplier = ascending ? 1 : -1;
+				rows.sort(function (a, b) {
+					var aVal = $(a).find('td').eq(colIndex).text().trim();
+					var bVal = $(b).find('td').eq(colIndex).text().trim();
+					if (colIndex === 2) {
+						aVal = new Date(aVal);
+						bVal = new Date(bVal);
+					} else if (colIndex === 5 || colIndex === 6) {
+						aVal = parseInt(aVal, 10);
+						bVal = parseInt(bVal, 10);
+					}
+					if (aVal < bVal) return -1 * multiplier;
+					if (aVal > bVal) return 1 * multiplier;
+					return 0;
+				});
+				$tbody.empty().append(rows);
+			}
+
+			$headers.on('click', '.sort', function () {
+				var colIndex = $(this).data('col');
+				var ascending = $(this).hasClass('asc');
+				$headers.removeClass('asc desc');
+				$(this).addClass(ascending ? 'desc' : 'asc');
+				sortRows(colIndex, ascending);
+			});
+		});
+	</script>
+
+</body>
+
+</html>

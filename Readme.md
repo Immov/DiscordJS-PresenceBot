@@ -21,7 +21,7 @@
 1. Open folder with vscode
 2. `npm init -y`
 3. `package.json` set `"main": "src/index.js"`
-4. Install necessary packaces:
+4. Install necessary packaces For Discord Bot:
 	- `npm install discord.js --save`
 	<br>discord api
 	- `npm install dotenv --save`
@@ -32,6 +32,11 @@
 	- `npm install mongoose --save`
 	<br>database mongodb api
 5. Run with `nodemon` command
+6. Install necessary packages for web:
+	- `npm install express --save`
+	<br>Web framework
+	- `npm install ejs --save`
+	<br>ejs for express views
 
 # Image Used
 [Calendar](https://www.flaticon.com/free-icon/calendar_1642767)
