@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const tap = require('../../models/tap');
+const { insertDB } = require('../../functions/insertDB');
 
 const now = new Date();
 let hour = now.getHours();
@@ -17,7 +19,7 @@ module.exports = {
 		const message = `[SIGN OUT]: ${interaction.user.tag} - ${hour}:${minute} [GMT]: ${zone}`;
 
 		const output = new EmbedBuilder()
-			.setTitle('SIGN IN')
+			.setTitle('SIGN OUT')
 			.setColor('Red')
 			.addFields({
 				name: 'User',
@@ -30,8 +32,15 @@ module.exports = {
 				// value: `${hour}:${minute}`,
 				inline: true,
 			});
-
+		const signOutSchema = new tap({
+			userID: interaction.user.id,
+			tap: `out`,
+			date: now,
+			hour: now.getHours(),
+			minute: now.getMinutes(),
+		});
 		await interaction.reply({ embeds: [output] });
+		insertDB(signOutSchema);
 		console.log(message);
 	},
 };
