@@ -1,16 +1,22 @@
-// Files and folder system path
-const fs = require('node:fs');
-const path = require('node:path');
-
-require('dotenv').config();
-
 // Node Modules
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const mongoose = require('mongoose');
+const ejs = require('ejs');
+const express = require('express');
+require('dotenv').config();
+// Files and folder system path
+const fs = require('node:fs');
+const path = require('node:path');
+// Models
+const tap = require('./models/tap');
 
 const client = new Client({
 	intents: [GatewayIntentBits.Guilds],
 });
+const app = express();
+app.set('view engine', 'ejs');
+
+const port = process.env.PORT || 3000;
 
 // Functions
 client.once(Events.ClientReady, (c) => {
@@ -66,11 +72,25 @@ client.on(Events.InteractionCreate, async (interaction) => {
 	}
 });
 
+// Express.js Routes
+app.get('/', async (req, res) => {
+	try {
+		const taps = await tap.find();
+		res.render('index', { taps });
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
 // Main
 (async () => {
 	try {
+		// DB
 		await mongoose.connect(process.env.MONGODB_URI, { keepAlive: true });
 		console.log('Connected to DB');
+		app.listen(port, () => {
+			console.log(`Server is listening on port ${port}`);
+		});
 		client.login(process.env.TOKEN);
 	} catch (error) {
 		console.log(error);
