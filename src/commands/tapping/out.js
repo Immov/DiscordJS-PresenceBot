@@ -18,7 +18,7 @@ module.exports = {
 		const timestamp = `<t:${unixTime}:t> - <t:${unixTime}:d>`;
 
 		const longName = await lookupName(interaction.user.id);
-		const message = `[SIGN OUT]: ${interaction.user.tag} - ${hour}:${minute} [GMT]: ${zone}`;
+		const message = `[SIGN OUT]: ${interaction.user.id} - ${hour}:${minute} [GMT]: ${zone}`;
 
 		const output = new EmbedBuilder()
 			.setTitle('SIGN OUT')

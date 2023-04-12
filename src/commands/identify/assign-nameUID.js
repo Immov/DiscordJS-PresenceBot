@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const {
+	SlashCommandBuilder,
+	EmbedBuilder,
+	PermissionFlagsBits,
+} = require('discord.js');
 const { renew } = require('../../functions/renew');
 const assign_user = require('../../models/users_name');
 
@@ -6,6 +10,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('assign-user')
 		.setDescription('Assign User ID sesuai Nama lengkap')
+		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 		.addUserOption((option) =>
 			option
 				.setName('target')

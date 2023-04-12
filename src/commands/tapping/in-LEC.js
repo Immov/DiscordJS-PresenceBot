@@ -26,7 +26,7 @@ module.exports = {
 		const longName = await lookupName(interaction.user.id);
 
 		const img = interaction.options.getAttachment('proof').url;
-		const message = `[SIGN IN][LEC]: ${interaction.user.tag} - ${hour}:${minute} [GMT]: ${zone} [PROOF]: ${img}`;
+		const message = `[SIGN IN][LEC]: ${interaction.user.id} - ${hour}:${minute} [GMT]: ${zone} [PROOF]: ${img}`;
 		const output = new EmbedBuilder()
 			.setTitle('SIGN IN - Lecturer')
 			.setColor('Green')

@@ -18,7 +18,7 @@ module.exports = {
 		const timestamp = `<t:${unixTime}:t> - <t:${unixTime}:d>`;
 
 		var longName = await lookupName(interaction.user.id);
-		const message = `[SIGN IN][WFA]: ${interaction.user.tag} - ${hour}:${minute} [GMT]: ${zone}`;
+		const message = `[SIGN IN][WFA]: ${interaction.user.id} - ${hour}:${minute} [GMT]: ${zone}`;
 
 		const output = new EmbedBuilder()
 			.setTitle('SIGN IN - WFA')

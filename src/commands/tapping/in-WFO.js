@@ -3,15 +3,6 @@ const tap = require('../../models/tap');
 const { insertDB } = require('../../functions/insertDB');
 const { lookupName } = require('../../functions/lookupUser');
 
-const now = new Date();
-let hour = now.getHours();
-let minute = now.getMinutes();
-hour = hour <= 9 ? '0' + hour : hour;
-minute = minute <= 9 ? '0' + minute : minute;
-const zone = (now.getTimezoneOffset() / 60) * -1;
-const unixTime = (Date.now() / 1000) | 0;
-const timestamp = `<t:${unixTime}:t> - <t:${unixTime}:d>`;
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('inwfo')
@@ -36,7 +27,7 @@ module.exports = {
 
 		const longName = await lookupName(interaction.user.id);
 		const reasoning = interaction.options.get('reason')?.value; // Reason
-		const message = `[SIGN IN][WFO]: ${interaction.user.tag} - ${hour}:${minute} [GMT]: ${zone} [REASON]: ${reasoning}`;
+		const message = `[SIGN IN][WFO]: ${interaction.user.id} - ${hour}:${minute} [GMT]: ${zone} [REASON]: ${reasoning}`;
 		const output = new EmbedBuilder()
 			.setTitle('SIGN IN - WFO')
 			.setColor('Green')
@@ -49,6 +40,11 @@ module.exports = {
 				name: 'Signed In:',
 				value: `${timestamp}`,
 				// value: `${hour}:${minute}`,
+				inline: true,
+			})
+			.addFields({
+				name: 'Reason:',
+				value: `${reasoning}`,
 				inline: true,
 			});
 
