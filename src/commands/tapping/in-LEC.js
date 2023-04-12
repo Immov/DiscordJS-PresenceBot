@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const tap = require('../../models/tap');
 const { insertDB } = require('../../functions/insertDB');
+const { lookupName } = require('../../functions/lookupUser');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -22,6 +23,7 @@ module.exports = {
 		const unixTime = (Date.now() / 1000) | 0;
 		const timestamp = `<t:${unixTime}:t> - <t:${unixTime}:d>`;
 
+		const longName = lookupName(interaction.user.id);
 		const img = interaction.options.getAttachment('proof').url;
 		const message = `[SIGN IN][LEC]: ${interaction.user.tag} - ${hour}:${minute} [GMT]: ${zone} [PROOF]: ${img}`;
 		const output = new EmbedBuilder()
@@ -40,7 +42,7 @@ module.exports = {
 			});
 
 		const wfoSchema = new tap({
-			userID: interaction.user.id,
+			userID: longName,
 			tap: `in-lec`,
 			date: now,
 			proofURL: img,
