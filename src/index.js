@@ -18,6 +18,15 @@ app.set('view engine', 'ejs');
 
 const port = process.env.PORT || 3000;
 
+const logFile = path.join(__dirname, 'app.log');
+const logStream = fs.createWriteStream(logFile, { flags: 'a' });
+
+console.log = (message) => {
+	const logMessage = `${new Date().toISOString()} - ${message}\n`;
+	logStream.write(logMessage);
+	process.stdout.write(logMessage); // log to terminal
+};
+
 // Functions
 client.once(Events.ClientReady, (c) => {
 	console.log(`🌏 ${c.user.tag} is online!`);
