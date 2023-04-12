@@ -23,7 +23,8 @@ module.exports = {
 		const unixTime = (Date.now() / 1000) | 0;
 		const timestamp = `<t:${unixTime}:t> - <t:${unixTime}:d>`;
 
-		const longName = lookupName(interaction.user.id);
+		const longName = await lookupName(interaction.user.id);
+
 		const img = interaction.options.getAttachment('proof').url;
 		const message = `[SIGN IN][LEC]: ${interaction.user.tag} - ${hour}:${minute} [GMT]: ${zone} [PROOF]: ${img}`;
 		const output = new EmbedBuilder()
@@ -42,7 +43,8 @@ module.exports = {
 			});
 
 		const wfoSchema = new tap({
-			userID: longName,
+			userID: interaction.user.id,
+			fullName: longName,
 			tap: `in-lec`,
 			date: now,
 			proofURL: img,

@@ -76,7 +76,31 @@ client.on(Events.InteractionCreate, async (interaction) => {
 app.get('/', async (req, res) => {
 	try {
 		const taps = await tap.find();
-		res.render('index', { taps });
+		res.render('index', {
+			taps,
+			month: 'All',
+			year: 'Taps',
+		});
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
+app.get('/:year/:month', async (req, res) => {
+	try {
+		const year = parseInt(req.params.year);
+		const month = parseInt(req.params.month);
+		const taps = await tap.find({
+			date: {
+				$gte: new Date(year, month - 1, 1),
+				$lt: new Date(year, month, 1),
+			},
+		});
+		res.render('index', {
+			month,
+			year,
+			taps,
+		});
 	} catch (error) {
 		res.status(500).send(error);
 	}

@@ -1,18 +1,16 @@
-const mongoose = require('mongoose');
-const assign_user = require('../../models/users_name');
+const assign_user = require('../models/users_name');
 
-const User = mongoose.model('User', assign_user);
-
-async function lookupName(userID) {
+async function lookupName(user_id) {
 	try {
-		const user = await User.findOne({ userID });
-		if (!user) {
-			throw new Error(`User with userID ${userID} not found`);
+		const user = await assign_user.findOne({ userID: user_id });
+		if (user) {
+			return user.fullName;
+		} else {
+			return user_id;
 		}
-		return user.fullName;
-	} catch (error) {
-		console.log(error);
-		throw new Error('Fauled to get full name');
+	} catch (err) {
+		console.error(err);
+		return user_id;
 	}
 }
 

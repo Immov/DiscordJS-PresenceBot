@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const tap = require('../../models/tap');
 const { insertDB } = require('../../functions/insertDB');
+const { lookupName } = require('../../functions/lookupUser');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -16,6 +17,7 @@ module.exports = {
 		const unixTime = (Date.now() / 1000) | 0;
 		const timestamp = `<t:${unixTime}:t> - <t:${unixTime}:d>`;
 
+		var longName = await lookupName(interaction.user.id);
 		const message = `[SIGN IN][WFA]: ${interaction.user.tag} - ${hour}:${minute} [GMT]: ${zone}`;
 
 		const output = new EmbedBuilder()
@@ -34,6 +36,7 @@ module.exports = {
 			});
 		const wfoSchema = new tap({
 			userID: interaction.user.id,
+			fullName: longName,
 			tap: `in-wfa`,
 			date: now,
 			hour: now.getHours(),

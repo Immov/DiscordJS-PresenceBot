@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { insertDB } = require('../../functions/insertDB');
+const { renew } = require('../../functions/renew');
 const assign_user = require('../../models/users_name');
 
 module.exports = {
@@ -20,8 +20,8 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const target = interaction.options.getUser('target')?.id;
-		const fullName = interaction.options.get('name')?.value;
-		const message = `[USR] ${target} has been assigned as ${fullName}`;
+		const longName = interaction.options.get('name')?.value;
+		const message = `[USR] ${target} has been assigned as ${longName}`;
 		const output = new EmbedBuilder()
 			.setTitle('Assign user')
 			.setColor('Blue')
@@ -32,17 +32,17 @@ module.exports = {
 			})
 			.addFields({
 				name: 'Full Name:',
-				value: `${fullName}`,
+				value: `${longName}`,
 				inline: true,
 			});
 
 		const assignSchema = new assign_user({
 			userID: target,
-			fullName: fullName,
+			fullName: longName,
 		});
 
 		await interaction.reply({ embeds: [output] });
-		insertDB(assignSchema);
+		renew(target, assignSchema);
 		console.log(message);
 	},
 };
