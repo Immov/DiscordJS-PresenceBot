@@ -37,7 +37,6 @@
 	<br>Web framework
 	- `npm install ejs --save`
 	<br>ejs for express views
-7. Run web app `node .\src\app.js`
 
 # Image Used
 [Calendar](https://www.flaticon.com/free-icon/calendar_1642767)
