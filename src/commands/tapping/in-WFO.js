@@ -17,17 +17,15 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const now = new Date();
-		let hour = now.getHours();
-		let minute = now.getMinutes();
-		hour = hour <= 9 ? '0' + hour : hour;
-		minute = minute <= 9 ? '0' + minute : minute;
 		const zone = (now.getTimezoneOffset() / 60) * -1;
 		const unixTime = (Date.now() / 1000) | 0;
 		const timestamp = `<t:${unixTime}:t> - <t:${unixTime}:d>`;
 
 		const longName = await lookupName(interaction.user.id);
 		const reasoning = interaction.options.get('reason')?.value; // Reason
-		const message = `[SIGN IN][WFO]: ${interaction.user.id} - ${hour}:${minute} [GMT]: ${zone} [REASON]: ${reasoning}`;
+		const message = `[SIGN IN][WFO]: ${
+			interaction.user.id
+		} - ${now.getHours()}:${now.getMinutes()} [GMT]: ${zone} [REASON]: ${reasoning}`;
 		const output = new EmbedBuilder()
 			.setTitle('SIGN IN - WFO')
 			.setColor('Green')

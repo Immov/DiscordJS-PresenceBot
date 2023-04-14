@@ -15,18 +15,15 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const now = new Date();
-		let hour = now.getHours();
-		let minute = now.getMinutes();
-		hour = hour <= 9 ? '0' + hour : hour;
-		minute = minute <= 9 ? '0' + minute : minute;
 		const zone = (now.getTimezoneOffset() / 60) * -1;
 		const unixTime = (Date.now() / 1000) | 0;
 		const timestamp = `<t:${unixTime}:t> - <t:${unixTime}:d>`;
 
 		const longName = await lookupName(interaction.user.id);
-
 		const img = interaction.options.getAttachment('proof').url;
-		const message = `[SIGN IN][LEC]: ${interaction.user.id} - ${hour}:${minute} [GMT]: ${zone} [PROOF]: ${img}`;
+		const message = `[SIGN IN][LEC]: ${
+			interaction.user.id
+		} - ${now.getHours()}:${now.getMinutes()} [GMT]: ${zone} [PROOF]: ${img}`;
 		const output = new EmbedBuilder()
 			.setTitle('SIGN IN - Lecturer')
 			.setColor('Green')
@@ -40,7 +37,8 @@ module.exports = {
 				value: `${timestamp}`,
 				// value: `${hour}:${minute}`,
 				inline: true,
-			});
+			})
+			.setImage(img);
 
 		const wfoSchema = new tap({
 			userID: interaction.user.id,
