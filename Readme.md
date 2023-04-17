@@ -38,5 +38,12 @@
 	- `npm install ejs --save`
 	<br>ejs for express views
 
+# .env Variables
+1. MONGODB_URI (URI to connect to mongoDB server)
+2. CLIENT_ID (Client ID / Application ID of the BOT )
+3. GUILD_ID (Server ID) (For registering slash command)
+4. TOKEN (Discord Bot Token)
+5. PORT (Express.js Port to run at)
+
 # Image Used
 [Calendar](https://www.flaticon.com/free-icon/calendar_1642767)
