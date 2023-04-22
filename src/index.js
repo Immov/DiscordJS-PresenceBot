@@ -23,7 +23,7 @@ const dateString = `${today.getDate()}-${
 	today.getMonth() + 1
 }-${today.getFullYear()}`;
 
-const logFile = path.join(__dirname, `../log/${dateString}.log`);
+const logFile = path.join(__dirname, `../logs/${dateString}.log`);
 const logStream = fs.createWriteStream(logFile, { flags: 'a' });
 
 console.log = (message) => {
