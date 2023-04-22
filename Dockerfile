@@ -10,11 +10,11 @@ COPY package*.json ./
 # Install app dependencies
 RUN npm install
 
+# Copy the entire project directory to the container
+COPY . .
+
 # Expose the port that the application will run on
 EXPOSE 3000
 
 # Start the application
 CMD ["npm", "start"]
-
-# Mount the application code as a volume
-VOLUME /app
