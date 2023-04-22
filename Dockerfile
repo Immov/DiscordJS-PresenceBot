@@ -19,7 +19,7 @@ COPY .env ./
 ENV NODE_ENV=production
 
 # Expose the port that the application will run on
-20.197.91.152EXPOSE 3000
+EXPOSE 3000
 
 # Start the application
 CMD ["node", "src/index.js"]
