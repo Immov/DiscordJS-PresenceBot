@@ -7,9 +7,6 @@ WORKDIR /app
 # Mount the application code as a volume
 VOLUME /app
 
-# Set the working directory to the mounted volume
-WORKDIR /app/ds-bot
-
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 

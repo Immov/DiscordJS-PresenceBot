@@ -50,4 +50,4 @@
 
 # Docker Commands
 - build `docker build -t presence-bot .`
-- run `docker run -v "$(pwd)":/app/ -p 3000:3000 presence-bot`
+- run `docker run --name ds-bot -v "$(pwd)":/app/ -p 3000:3000 presence-bot`
