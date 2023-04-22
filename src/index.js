@@ -29,7 +29,7 @@ console.log = (message) => {
 
 // Functions
 client.once(Events.ClientReady, (c) => {
-	console.log(`🌏 ${c.user.tag} is online!`);
+	console.log(`[LOGIN] ${c.user.tag} is online!`);
 });
 
 // Command Collections
