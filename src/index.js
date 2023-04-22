@@ -18,7 +18,12 @@ app.set('view engine', 'ejs');
 
 const port = process.env.PORT || 3000;
 
-const logFile = path.join(__dirname, 'app.log');
+const today = new Date();
+const dateString = `${today.getDate()}-${
+	today.getMonth() + 1
+}-${today.getFullYear()}`;
+
+const logFile = path.join(__dirname, `../log/${dateString}.log`);
 const logStream = fs.createWriteStream(logFile, { flags: 'a' });
 
 console.log = (message) => {

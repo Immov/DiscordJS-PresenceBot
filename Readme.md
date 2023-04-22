@@ -49,5 +49,7 @@
 [Calendar](https://www.flaticon.com/free-icon/calendar_1642767)
 
 # Docker Commands
-- build `docker build -t presence-bot .`
-- run `docker run -d --name ds-bot -p 3000:3000 presence-bot`
+- build `docker build -t ds-bot .`
+- run `docker run -d -p 3000:3000 -v myvolume:/app/src ds-bot`
+
+

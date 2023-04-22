@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:latest
+FROM node:19-slim
 
 # Set the working directory to /app
 WORKDIR /app
@@ -12,6 +12,9 @@ RUN npm install
 
 # Copy the entire project directory to the container
 COPY . .
+
+# Create a volume for app logs
+VOLUME /app/src
 
 # Expose the port that the application will run on
 EXPOSE 3000
