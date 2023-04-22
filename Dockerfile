@@ -12,7 +12,7 @@ RUN npm install
 
 # Copy the rest of the application code to the container
 COPY ./src /app/src
-COPY ./view /app/views
+COPY ./views /app/views
 COPY .env ./
 
 # Set the environment variable to production
