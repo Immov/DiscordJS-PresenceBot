@@ -13,11 +13,8 @@ RUN npm install
 # Copy the entire project directory to the container
 COPY . .
 
-# Create a directory for logs
-RUN mkdir /logs
-
 # Make logs directory persistent and mountable
-VOLUME /logs
+VOLUME /app/logs
 
 # Expose the port that the application will run on
 EXPOSE 3000
