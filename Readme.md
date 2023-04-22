@@ -50,7 +50,7 @@
 
 # Docker Commands
 - build `docker build -t ds-bot .`
-- run `docker run -v $(pwd)/logs:/logs -p 3000:3000 ds-bot`
+- run `docker run -d -p 3000:3000 -v $(pwd)/logs:/app/logs ds-bot`
 
 
 

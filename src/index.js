@@ -125,9 +125,9 @@ app.get('/:year/:month', async (req, res) => {
 	try {
 		// DB
 		await mongoose.connect(process.env.MONGODB_URI, { keepAlive: true });
-		console.log('Connected to DB');
+		console.log('[MONGO] Connected to DB');
 		app.listen(port, () => {
-			console.log(`Server is listening on port ${port}`);
+			console.log(`[EXPRESS] Server is listening on port ${port}`);
 		});
 		client.login(process.env.TOKEN);
 	} catch (error) {
