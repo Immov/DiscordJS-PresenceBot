@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const tap = require('../../models/tap');
 const { insertDB } = require('../../utils/insertDB');
 const { lookupName } = require('../../utils/lookupUser');
+const { getFormattedTimestamp } = require('../../utils/dateUtils');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -16,16 +17,13 @@ module.exports = {
 				.setRequired(true)
 		),
 	async execute(interaction) {
-		const now = new Date();
-		const zone = (now.getTimezoneOffset() / 60) * -1;
-		const unixTime = (Date.now() / 1000) | 0;
-		const timestamp = `<t:${unixTime}:t> - <t:${unixTime}:d>`;
+		const timestamp = getFormattedTimestamp();
 
 		const longName = await lookupName(interaction.user.id);
 		const reasoning = interaction.options.get('reason')?.value; // Reason
 		const message = `[SIGN IN][WFO]: ${
 			interaction.user.id
-		} - ${now.getHours()}:${now.getMinutes()} [GMT]: ${zone} [REASON]: ${reasoning}`;
+		} ${new Date().getHours()}:${new Date().getMinutes()} [REASON]: ${reasoning}`;
 		const output = new EmbedBuilder()
 			.setTitle('SIGN IN - WFO')
 			.setColor('Green')
@@ -37,7 +35,6 @@ module.exports = {
 			.addFields({
 				name: 'Signed In:',
 				value: `${timestamp}`,
-				// value: `${hour}:${minute}`,
 				inline: true,
 			})
 			.addFields({
@@ -50,10 +47,10 @@ module.exports = {
 			userID: interaction.user.id,
 			fullName: longName,
 			tap: `in-wfo`,
-			date: now,
+			date: new Date(),
 			reason: reasoning,
-			hour: now.getHours(),
-			minute: now.getMinutes(),
+			hour: new Date().getHours(),
+			minute: new Date().getMinutes(),
 		});
 		await interaction.reply({ embeds: [output] });
 		insertDB(wfoSchema);

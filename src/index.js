@@ -12,7 +12,6 @@ const path = require('node:path');
 // Models
 const tap = require('./models/tap');
 
-const console = {};
 console.log = require('./utils/logger');
 
 const client = new Client({

@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const tap = require('../../models/tap');
 const { insertDB } = require('../../utils/insertDB');
+const { getFormattedTimestamp } = require('../../utils/dateUtils');
 const { lookupName } = require('../../utils/lookupUser');
 
 module.exports = {
@@ -8,15 +9,12 @@ module.exports = {
 		.setName('out')
 		.setDescription('Selesai Bekerja'),
 	async execute(interaction) {
-		const now = new Date();
-		const zone = (now.getTimezoneOffset() / 60) * -1;
-		const unixTime = (Date.now() / 1000) | 0;
-		const timestamp = `<t:${unixTime}:t> - <t:${unixTime}:d>`;
+		const timestamp = getFormattedTimestamp();
 
 		const longName = await lookupName(interaction.user.id);
 		const message = `[SIGN OUT]: ${
 			interaction.user.id
-		} - ${now.getHours()}:${now.getMinutes()} [GMT]: ${zone}`;
+		} ${new Date().getHours()}:${new Date().getMinutes()}`;
 
 		const output = new EmbedBuilder()
 			.setTitle('SIGN OUT')
@@ -29,16 +27,15 @@ module.exports = {
 			.addFields({
 				name: 'Signed Out:',
 				value: `${timestamp}`,
-				// value: `${hour}:${minute}`,
 				inline: true,
 			});
 		const signOutSchema = new tap({
 			userID: interaction.user.id,
 			fullName: longName,
 			tap: `out`,
-			date: now,
-			hour: now.getHours(),
-			minute: now.getMinutes(),
+			date: new Date(),
+			hour: new Date().getHours(),
+			minute: new Date().getMinutes(),
 		});
 		await interaction.reply({ embeds: [output] });
 		insertDB(signOutSchema);
