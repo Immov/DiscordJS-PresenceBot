@@ -44,6 +44,7 @@
 3. GUILD_ID (Server ID) (For registering slash command)
 4. TOKEN (Discord Bot Token)
 5. PORT (Express.js Port to run at)
+6. TZ (Timezone)
 
 # Image Used
 [Calendar](https://www.flaticon.com/free-icon/calendar_1642767)
@@ -56,7 +57,6 @@ docker run -d \
   --name ds-bot \
   -p 3000:3000 \
   -v $(pwd)/logs:/app/logs \
-  -e TZ=Asia/Jakarta \
   ds-bot
 ```
 
