@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const tap = require('../../models/tap');
-const { insertDB } = require('../../functions/insertDB');
-const { lookupName } = require('../../functions/lookupUser');
+const { insertDB } = require('../../utils/insertDB');
+const { lookupName } = require('../../utils/lookupUser');
 
 module.exports = {
 	data: new SlashCommandBuilder()

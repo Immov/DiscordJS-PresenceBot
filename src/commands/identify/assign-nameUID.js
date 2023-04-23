@@ -3,7 +3,7 @@ const {
 	EmbedBuilder,
 	PermissionFlagsBits,
 } = require('discord.js');
-const { renew } = require('../../functions/renew');
+const { renew } = require('../../utils/renew');
 const assign_user = require('../../models/users_name');
 
 module.exports = {

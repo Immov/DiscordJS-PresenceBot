@@ -4,11 +4,16 @@ const mongoose = require('mongoose');
 const ejs = require('ejs');
 const express = require('express');
 require('dotenv').config();
+
 // Files and folder system path
 const fs = require('node:fs');
 const path = require('node:path');
+
 // Models
 const tap = require('./models/tap');
+
+const console = {};
+console.log = require('./utils/logger');
 
 const client = new Client({
 	intents: [GatewayIntentBits.Guilds],
@@ -17,20 +22,6 @@ const app = express();
 app.set('view engine', 'ejs');
 
 const port = process.env.PORT || 3000;
-
-const today = new Date();
-const dateString = `${today.getDate()}-${
-	today.getMonth() + 1
-}-${today.getFullYear()}`;
-
-const logFile = path.join(__dirname, `../logs/${dateString}.log`);
-const logStream = fs.createWriteStream(logFile, { flags: 'a' });
-
-console.log = (message) => {
-	const logMessage = `${new Date().toISOString()} - ${message}\n`;
-	logStream.write(logMessage);
-	process.stdout.write(logMessage); // log to terminal
-};
 
 // Functions
 client.once(Events.ClientReady, (c) => {
