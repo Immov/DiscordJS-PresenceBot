@@ -50,7 +50,13 @@
 
 # Docker Commands
 - build `docker build -t ds-bot .`
-- run `docker run -d -p 3000:3000 -v $(pwd)/logs:/app/logs ds-bot`
-
-
+- run (Change TZ to suit your timezone)
+``` bash
+docker run -d \
+  --name ds-bot \
+  -p 3000:3000 \
+  -v $(pwd)/logs:/app/logs \
+  -e TZ=Asia/Jakarta \
+  ds-bot
+```
 
