@@ -12,7 +12,7 @@ const path = require('node:path');
 // Models
 const tap = require('./models/tap');
 
-// console.log = require('./utils/logger');
+console.log = require('./utils/logger');
 
 const client = new Client({
 	intents: [GatewayIntentBits.Guilds],
