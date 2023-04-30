@@ -119,6 +119,7 @@ app.get('/:year/:month', async (req, res) => {
 		app.listen(port, () => {
 			console.log(`[EXPRESS] Server is listening on port ${port}`);
 		});
+		// DS Login
 		client.login(process.env.TOKEN);
 	} catch (error) {
 		console.log(error);
